@@ -1,0 +1,67 @@
+public class Main {
+    public static void main(String[] args) {
+        int[][] x = {
+            {1, 100, 2, 11, 35},
+            {100, 3, 3333, 15, 4},
+            {333, 111, 33, 20, 15}
+        };
+
+        int k = 1; // Кількість позицій для зсуву
+
+        int rows = x.length;
+        int cols = x[0].length;
+
+        // Зсув матриці вліво на k позицій
+        for (int i = 0; i < rows; i++) {
+            for (int j = k; j < cols; j++) {
+                x[i][j - k] = x[i][j];
+            }
+            for (int j = cols - k; j < cols; j++) {
+                x[i][j] = 0;
+            }
+        }
+
+        // Зсув матриці догори на k позицій
+        for (int i = k; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                x[i - k][j] = x[i][j];
+            }
+        }
+        for (int i = rows - k; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                x[i][j] = 0;
+            }
+        }
+
+        // Виведення результату
+        printMatrix(x);
+    }
+
+    public static void printMatrix(int[][] matrix) {
+        int maxColumns = 0;
+
+        for (int i = 0; i < matrix.length; i++) {
+            if (matrix[i].length > maxColumns) {
+                maxColumns = matrix[i].length;
+            }
+        }
+
+        System.out.printf("%13s", "");
+
+        for (int i = 1; i <= maxColumns; i++) {
+            System.out.printf("%14s", "стовбець " + i);
+        }
+
+        System.out.println();
+
+        for (int i = 0; i < matrix.length; i++) {
+            System.out.print("рядок " + (i + 1) + " ");
+
+            for (int j = 0; j < matrix[i].length; j++) {
+                System.out.printf("%14s", matrix[i][j]);
+            }
+
+            System.out.println();
+        }
+    }
+}
